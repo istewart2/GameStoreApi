@@ -11,12 +11,12 @@ public static class GamesEndpoints
     {
         var group = routes.MapGroup("/games").WithParameterValidation();
 
-        group.MapGet("/", (IGamesRepository repository) => repository.GetAll());
+        group.MapGet("/", (IGamesRepository repository) => repository.GetAll().Select(game => game.AsDto()));
 
         group.MapGet("/{id}", (IGamesRepository repository, int id) => 
         {
             Game? game = repository.Get(id);
-            return game is not null ? Results.Ok(game) : Results.NotFound();
+            return game is not null ? Results.Ok(game.AsDto()) : Results.NotFound();
         }).WithName(GetGameEndpoint);
 
         group.MapPost("/", (IGamesRepository repository, Game game) => 
