@@ -1,10 +1,10 @@
-using GameStore.Api.Entities;
+using GameStore.Api.Dtos;
 
 namespace GameStore.Api.Entities;
 
 public static class EntityExtensions
 {
-    public static GameDto AsDto(this Game game) 
+    public static GameDto AsDto(this Game game)
     {
         return new GameDto(
             game.Id,
